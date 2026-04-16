@@ -5,6 +5,7 @@ import Problem from "@/components/strata/Problem";
 import HowItWorks from "@/components/strata/HowItWorks";
 import Features from "@/components/strata/Features";
 import Proof from "@/components/strata/Proof";
+import Pricing from "@/components/strata/Pricing";
 import FounderNote from "@/components/strata/FounderNote";
 import ProductPreview from "@/components/strata/ProductPreview";
 import CTA from "@/components/strata/CTA";
@@ -20,6 +21,7 @@ export default function StrataPage() {
       <HowItWorks />
       <Features />
       <Proof />
+      <Pricing />
       <FounderNote />
       <ProductPreview />
       <CTA />

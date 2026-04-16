@@ -29,8 +29,8 @@ export default function FounderNote() {
         <div className="grid lg:grid-cols-[1fr_420px] gap-16 lg:gap-24 items-center">
           {/* Left: Note */}
           <motion.div
-            initial={{ y: 24 }}
-            animate={inView ? { y: 0 } : {}}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <div className="flex items-center gap-2 mb-7">
@@ -70,8 +70,8 @@ export default function FounderNote() {
 
           {/* Right: Team cards */}
           <motion.div
-            initial={{ x: 20 }}
-            animate={inView ? { x: 0 } : {}}
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             className="space-y-4"
           >

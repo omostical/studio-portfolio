@@ -30,14 +30,14 @@ export default function Problem() {
     <section ref={ref} className="relative py-[120px]" id="problem">
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, rgba(184,147,90,0.025), transparent)" }}
+        style={{ background: "linear-gradient(to bottom, transparent, rgba(184,147,90,0.02), transparent)" }}
       />
 
       <div className="max-w-layout mx-auto px-6 md:px-10">
         {/* Section label */}
         <motion.div
-          initial={{ y: 20 }}
-          animate={inView ? { y: 0 } : {}}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-2 mb-12"
         >
@@ -47,10 +47,10 @@ export default function Problem() {
           </span>
         </motion.div>
 
-        {/* Human narrative pull quote */}
+        {/* Human narrative */}
         <motion.div
-          initial={{ y: 28 }}
-          animate={inView ? { y: 0 } : {}}
+          initial={{ opacity: 0, y: 28 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
           className="grid lg:grid-cols-[1fr_380px] gap-12 lg:gap-20 mb-20 items-start"
         >
@@ -74,10 +74,10 @@ export default function Problem() {
             </p>
           </div>
 
-          {/* Portrait card with quote attribution */}
+          {/* Spreadsheet chaos visual */}
           <motion.div
-            initial={{ x: 20 }}
-            animate={inView ? { x: 0 } : {}}
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative"
             style={{
@@ -87,33 +87,69 @@ export default function Problem() {
               overflow: "hidden",
             }}
           >
-            {/* Photo strip */}
-            <div
-              className="relative w-full"
-              style={{ height: "200px", background: "#111827" }}
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80&auto=format&fit=crop"
-                alt="Finance professional at work"
-                fill
-                className="object-cover"
-                style={{ opacity: 0.7 }}
-                unoptimized
-              />
-              {/* Warm overlay */}
-              <div
-                className="absolute inset-0"
-                style={{ background: "linear-gradient(to bottom, rgba(6,10,20,0), rgba(12,18,32,0.9))" }}
-              />
+            {/* Fake spreadsheet visual */}
+            <div className="px-4 py-3.5 flex items-center gap-1.5" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
+              {["Tab 1", "Tab 2", "Tab 3", "…", "Tab 14", "Tab 15", "…", "Tab 22"].map((t, i) => (
+                <div
+                  key={i}
+                  className="text-[9px] font-body px-2 py-1 whitespace-nowrap"
+                  style={{
+                    background: t === "Tab 14" ? "rgba(248,113,113,0.15)" : "rgba(255,255,255,0.04)",
+                    border: `1px solid ${t === "Tab 14" ? "rgba(248,113,113,0.3)" : "rgba(255,255,255,0.06)"}`,
+                    color: t === "Tab 14" ? "#f87171" : "#6B7A8F",
+                    borderRadius: "3px 3px 0 0",
+                  }}
+                >
+                  {t}
+                </div>
+              ))}
             </div>
 
-            {/* Quote */}
-            <div className="p-5">
-              <p className="font-body text-[13px] text-cloud leading-relaxed mb-4">
-                &ldquo;I spent four years in finance ops. Every single month-end close
-                felt like defusing a bomb. Strata is what I wished existed back then.&rdquo;
-              </p>
-              <div className="flex items-center gap-2.5">
+            <div className="p-4">
+              <div
+                className="overflow-hidden"
+                style={{ border: "1px solid rgba(255,255,255,0.07)", borderRadius: "4px" }}
+              >
+                {/* Fake cells */}
+                <div className="grid grid-cols-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                  {["A", "B", "C", "D"].map((col) => (
+                    <div key={col} className="py-1.5 px-3 text-[9px] font-mono text-center text-mist" style={{ background: "rgba(255,255,255,0.03)", borderRight: "1px solid rgba(255,255,255,0.05)" }}>{col}</div>
+                  ))}
+                </div>
+                {[
+                  ["Acme Corp", "=SUM(B12:B24)", "#REF!", "$84,000"],
+                  ["Beacon SW", "=IF(C4>0,…", "14", "$32,000"],
+                  ["Cirrus", "Manual entry", "—", "$126,000"],
+                  ["#DIV/0!", "=VLOOKUP(…", "??", "#VALUE!"],
+                  ["…", "…", "…", "…"],
+                ].map((row, ri) => (
+                  <div key={ri} className="grid grid-cols-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    {row.map((cell, ci) => (
+                      <div
+                        key={ci}
+                        className="py-1.5 px-3 text-[9px] font-mono truncate"
+                        style={{
+                          color: cell.startsWith("#") ? "#f87171" : cell === "Manual entry" ? "rgba(184,147,90,0.7)" : "#6B7A8F",
+                          borderRight: "1px solid rgba(255,255,255,0.04)",
+                        }}
+                      >
+                        {cell}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2 mt-4 p-3" style={{ background: "rgba(248,113,113,0.06)", border: "1px solid rgba(248,113,113,0.15)", borderRadius: "6px" }}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 2v4M6 8h.01" stroke="#f87171" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="6" cy="6" r="5" stroke="#f87171" strokeWidth="1.2" />
+                </svg>
+                <span className="text-[10px] font-body" style={{ color: "#f87171" }}>3 circular references detected</span>
+              </div>
+
+              {/* Attribution */}
+              <div className="flex items-center gap-2.5 mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                 <div className="w-7 h-7 rounded-full overflow-hidden relative flex-shrink-0">
                   <Image src="https://i.pravatar.cc/40?img=47" alt="Co-founder" fill className="object-cover" unoptimized />
                 </div>
@@ -122,6 +158,9 @@ export default function Problem() {
                   <p className="text-[10px] font-body text-mist">Co-founder, Strata · ex-Stripe Finance Ops</p>
                 </div>
               </div>
+              <p className="font-body text-[12px] text-mist leading-relaxed mt-3">
+                &ldquo;I spent four years in finance ops. Every single month-end close felt like defusing a bomb. Strata is what I wished existed back then.&rdquo;
+              </p>
             </div>
           </motion.div>
         </motion.div>
@@ -137,8 +176,8 @@ export default function Problem() {
           {pains.map((pain, i) => (
             <motion.div
               key={pain.number}
-              initial={{ y: 32 }}
-              animate={inView ? { y: 0 } : {}}
+              initial={{ opacity: 0, y: 32 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, delay: 0.15 + i * 0.12, ease: [0.25, 0.1, 0.25, 1] }}
               className="p-8 lg:p-10"
               style={{

@@ -95,8 +95,8 @@ export default function Proof() {
           {metrics.map((m, i) => (
             <motion.div
               key={m.label}
-              initial={{ y: 8 }}
-              animate={inView ? { y: 0 } : {}}
+              initial={{ opacity: 0, y: 8 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="px-8 py-10"
               style={{
@@ -122,8 +122,8 @@ export default function Proof() {
 
         {/* Section label */}
         <motion.div
-          initial={{ y: 16 }}
-          animate={inView ? { y: 0 } : {}}
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex items-center gap-2 mb-12"
         >
@@ -133,13 +133,13 @@ export default function Proof() {
           </span>
         </motion.div>
 
-        {/* Main testimonials with photos */}
+        {/* Main testimonials */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ y: 28 }}
-              animate={inView ? { y: 0 } : {}}
+              initial={{ opacity: 0, y: 28 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, delay: 0.3 + i * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex flex-col"
               style={{
@@ -213,8 +213,8 @@ export default function Proof() {
           {moreVoices.map((v, i) => (
             <motion.div
               key={v.name}
-              initial={{ y: 20 }}
-              animate={inView ? { y: 0 } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.55 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
               className="p-5"
               style={{
@@ -223,7 +223,6 @@ export default function Proof() {
                 borderRadius: "10px",
               }}
             >
-              {/* Mini stars */}
               <div className="flex items-center gap-0.5 mb-3">
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} width="10" height="10" viewBox="0 0 14 14" fill="rgba(184,147,90,0.7)">

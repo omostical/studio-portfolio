@@ -10,13 +10,13 @@ const stagger = {
 };
 
 const line = {
-  hidden: { y: 22 },
-  show: { y: 0, transition: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] } },
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
 const fade = {
-  hidden: { y: 14 },
-  show: { y: 0, transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] } },
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
 // Five real-looking professional avatars
@@ -154,8 +154,8 @@ export default function Hero() {
 
         {/* Right: Dashboard + floating testimonial card */}
         <motion.div
-          initial={{ x: 28, y: 6 }}
-          animate={{ x: 0, y: 0 }}
+          initial={{ opacity: 0, x: 28, y: 6 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative hidden lg:block"
         >
