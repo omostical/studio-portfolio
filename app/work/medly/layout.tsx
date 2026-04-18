@@ -16,22 +16,23 @@ const source = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Medly — Patient Engagement Platform",
+  title: "Medly — Patient Engagement That Actually Works",
   description:
-    "Reduce no-shows by 40% with smart scheduling, automated reminders, and real-time patient communication for healthcare providers.",
+    "Reduce no-shows by 40% with smart scheduling, automated reminders, and real-time patient communication. Trusted by 200+ healthcare providers.",
   keywords: [
     "patient engagement platform",
-    "reduce no-shows",
+    "reduce no-shows healthcare",
     "healthcare scheduling software",
     "automated patient reminders",
     "patient communication platform",
     "clinic management software",
+    "HIPAA compliant patient engagement",
     "healthcare provider tools",
   ],
   openGraph: {
-    title: "Medly — Patient Engagement Platform",
+    title: "Medly — Patient Engagement That Actually Works",
     description:
-      "Your patients want to show up. Make it easy. Reduce no-shows by 40% with smart scheduling and automated reminders.",
+      "Your patients want to show up. Make it easy. Reduce no-shows by 40% with smart scheduling and automated reminders for healthcare providers.",
     type: "website",
   },
 };

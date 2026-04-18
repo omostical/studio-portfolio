@@ -22,28 +22,26 @@ export default function TrustBar() {
     <section
       ref={ref}
       style={{
-        background: "#0F1A14",
-        borderTop: "1px solid rgba(78,203,160,0.06)",
-        borderBottom: "1px solid rgba(78,203,160,0.06)",
-        padding: "32px 0",
+        background: "#FAFAF5",
+        padding: "48px 0 56px",
         overflow: "hidden",
       }}
     >
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <p
           className="text-center"
           style={{
             fontFamily: "var(--font-source), system-ui, sans-serif",
-            fontSize: "0.75rem",
+            fontSize: "0.8rem",
             fontWeight: 500,
-            color: "#7A8F85",
+            color: "#7F8C8D",
             textTransform: "uppercase",
             letterSpacing: "0.1em",
-            marginBottom: "20px",
+            marginBottom: "28px",
           }}
         >
           Trusted by 200+ healthcare providers
@@ -53,8 +51,8 @@ export default function TrustBar() {
         <div
           style={{
             display: "flex",
-            gap: "48px",
-            animation: "medly-marquee 30s linear infinite",
+            gap: "56px",
+            animation: "medly-marquee 35s linear infinite",
             width: "max-content",
           }}
         >
@@ -63,10 +61,10 @@ export default function TrustBar() {
               key={i}
               style={{
                 fontFamily: "var(--font-source), system-ui, sans-serif",
-                fontSize: "0.85rem",
+                fontSize: "0.9rem",
                 fontWeight: 400,
-                color: "#7A8F85",
-                opacity: 0.6,
+                color: "#7F8C8D",
+                opacity: 0.5,
                 whiteSpace: "nowrap",
                 letterSpacing: "0.02em",
               }}

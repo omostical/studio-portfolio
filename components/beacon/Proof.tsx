@@ -1,13 +1,26 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useSpring, useTransform, MotionValue } from "framer-motion";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
 /* Animated counter */
-function AnimatedNumber({ value, suffix = "", prefix = "", inView }: { value: number; suffix?: string; prefix?: string; inView: boolean }) {
+function AnimatedNumber({
+  value,
+  suffix = "",
+  prefix = "",
+  inView,
+}: {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  inView: boolean;
+}) {
   const spring = useSpring(0, { duration: 1600, bounce: 0 });
-  const display = useTransform(spring, (v: number) => `${prefix}${Math.round(v * 10) / 10}${suffix}`);
+  const display = useTransform(
+    spring,
+    (v: number) => `${prefix}${Math.round(v * 10) / 10}${suffix}`
+  );
   const [text, setText] = useState(`${prefix}0${suffix}`);
 
   useEffect(() => {
@@ -17,7 +30,10 @@ function AnimatedNumber({ value, suffix = "", prefix = "", inView }: { value: nu
   }, [inView, spring, value]);
 
   useEffect(() => {
-    const unsubscribe = (display as MotionValue<string>).on("change", (v: string) => setText(v));
+    const unsubscribe = (display as MotionValue<string>).on(
+      "change",
+      (v: string) => setText(v)
+    );
     return unsubscribe;
   }, [display]);
 
@@ -25,38 +41,35 @@ function AnimatedNumber({ value, suffix = "", prefix = "", inView }: { value: nu
 }
 
 const stats = [
-  { value: 400, suffix: "+", label: "Early-stage teams", description: "Pre-seed to Series A" },
-  { value: 2.1, prefix: "$", suffix: "B", label: "Runway tracked", description: "Across all portfolios" },
-  { value: 12, suffix: " min", label: "Avg update time", description: "Down from 2+ hours" },
+  { value: 400, suffix: "+", label: "teams", description: "Pre-seed to Series A" },
+  { value: 2.1, prefix: "$", suffix: "B", label: "runway tracked", description: "Across all portfolios" },
+  { value: 12, suffix: " min", label: "avg update time", description: "Down from 2+ hours" },
 ];
 
 const testimonials = [
   {
     quote:
-      "We were spending 3 hours every month pulling numbers from 5 different tools for investor updates. Beacon does it in 12 minutes. That's not a typo.",
-    name: "Ava Rodriguez",
-    title: "CEO & Co-founder, Patchwork",
-    company: "Patchwork (YC W24)",
-    avatar: "A",
-    color: "#FF6B35",
+      "We replaced 6 tools with Beacon on day one. That's not hyperbole — we literally deleted 6 subscriptions.",
+    name: "Sarah Kim",
+    title: "CEO, Lumina",
+    badge: "YC W24",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
   },
   {
     quote:
-      "Our cap table was a Google Sheet that three people had different versions of. Beacon fixed that in a day. Now I can model our Series A dilution in seconds.",
+      "Our cap table was a Google Sheet that three people had different versions of. Beacon fixed that in a day.",
     name: "Jordan Okafor",
-    title: "Co-founder & COO, Layup",
-    company: "Layup (Techstars '24)",
-    avatar: "J",
-    color: "#6366F1",
+    title: "Co-founder, Layup",
+    badge: "Techstars '24",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
   },
   {
     quote:
-      "I showed our Beacon dashboard to our lead investor and she said it was the most organized startup she'd seen at our stage. That's the whole pitch.",
+      "I showed our Beacon dashboard to our lead investor and she said it was the most organized startup she'd seen at our stage.",
     name: "Mei Lin Chen",
-    title: "Founder & CEO, Kitestring",
-    company: "Kitestring (Pioneer Fund)",
-    avatar: "M",
-    color: "#22C55E",
+    title: "Founder, Kitestring",
+    badge: "Pioneer Fund",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face",
   },
 ];
 
@@ -71,114 +84,99 @@ export default function Proof() {
       style={{
         paddingTop: 96,
         paddingBottom: 96,
-        background: "#FFFFFF",
-        borderTop: "1px solid rgba(24,24,27,0.06)",
-        borderBottom: "1px solid rgba(24,24,27,0.06)",
+        borderTop: "1px solid #27272A",
       }}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        {/* Stats */}
+        {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: 72 }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: "center", marginBottom: 56 }}
         >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(1, 1fr)",
-              gap: 32,
-              textAlign: "center",
-            }}
-            className="md:!grid-cols-3"
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-sora)",
-                    fontSize: "clamp(36px, 5vw, 52px)",
-                    fontWeight: 700,
-                    letterSpacing: "-0.03em",
-                    color: "#FF6B35",
-                    marginBottom: 4,
-                    lineHeight: 1,
-                  }}
-                >
-                  <AnimatedNumber
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    prefix={stat.prefix || ""}
-                    inView={inView}
-                  />
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-sora)",
-                    fontSize: 16,
-                    fontWeight: 600,
-                    color: "#18181B",
-                    marginBottom: 4,
-                  }}
-                >
-                  {stat.label}
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-jakarta)",
-                    fontSize: 14,
-                    color: "#A1A1AA",
-                  }}
-                >
-                  {stat.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Testimonials header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          style={{ textAlign: "center", marginBottom: 40 }}
-        >
-          <h2
-            style={{
-              fontFamily: "var(--font-sora)",
-              fontSize: "clamp(24px, 3.5vw, 32px)",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              color: "#18181B",
-              marginBottom: 12,
-            }}
-          >
-            Founders who stopped duct-taping
-          </h2>
           <p
             style={{
-              fontFamily: "var(--font-jakarta)",
-              fontSize: 16,
+              fontFamily: "var(--font-jetbrains), monospace",
+              fontSize: 12,
               color: "#71717A",
+              letterSpacing: "0.04em",
+              marginBottom: 16,
             }}
           >
-            Real teams, real results — no made-up quotes
+            // results
           </p>
         </motion.div>
 
-        {/* Testimonial cards */}
+        {/* Large metrics */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(1, 1fr)",
+            gap: 32,
+            textAlign: "center",
+            marginBottom: 80,
+          }}
+          className="md:!grid-cols-3"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontSize: "clamp(40px, 6vw, 56px)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.03em",
+                  color: "#4ADE80",
+                  marginBottom: 4,
+                  lineHeight: 1,
+                }}
+              >
+                <AnimatedNumber
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  prefix={stat.prefix || ""}
+                  inView={inView}
+                />
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: "#FAFAFA",
+                  marginBottom: 4,
+                }}
+              >
+                {stat.label}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: 13,
+                  color: "#71717A",
+                }}
+              >
+                {stat.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Testimonials */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(1, 1fr)",
-            gap: 20,
+            gap: 16,
           }}
           className="md:!grid-cols-3"
         >
@@ -187,32 +185,30 @@ export default function Proof() {
               key={t.name}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
               style={{
-                background: "#FAFAF8",
-                borderRadius: 14,
-                padding: 28,
-                border: "1px solid rgba(24,24,27,0.06)",
+                background: "#18181B",
+                border: "1px solid #27272A",
+                borderRadius: 2,
+                padding: 24,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                transition: "border-color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#3F3F46";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "#27272A";
               }}
             >
-              {/* Stars */}
-              <div style={{ marginBottom: 16 }}>
-                {[0, 1, 2, 3, 4].map((s) => (
-                  <span key={s} style={{ color: "#F59E0B", fontSize: 16, marginRight: 2 }}>
-                    &#9733;
-                  </span>
-                ))}
-              </div>
-
               <p
                 style={{
-                  fontFamily: "var(--font-jakarta)",
-                  fontSize: 15,
-                  lineHeight: 1.65,
-                  color: "#3F3F46",
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: 14,
+                  lineHeight: 1.7,
+                  color: "#A1A1AA",
                   marginBottom: 24,
                   flex: 1,
                 }}
@@ -220,33 +216,62 @@ export default function Proof() {
                 &ldquo;{t.quote}&rdquo;
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  borderTop: "1px solid #27272A",
+                  paddingTop: 16,
+                }}
+              >
+                <Image
+                  src={t.avatar}
+                  alt={t.name}
+                  width={36}
+                  height={36}
+                  unoptimized
                   style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 10,
-                    background: t.color,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: "var(--font-sora)",
-                    fontSize: 16,
-                    fontWeight: 600,
-                    color: "#FFFFFF",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#FAFAFA",
+                    }}
+                  >
+                    {t.name}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 12,
+                      color: "#71717A",
+                    }}
+                  >
+                    {t.title}
+                  </div>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-jetbrains), monospace",
+                    fontSize: 10,
+                    color: "#4ADE80",
+                    background: "rgba(74, 222, 128, 0.1)",
+                    border: "1px solid rgba(74, 222, 128, 0.2)",
+                    borderRadius: 2,
+                    padding: "3px 8px",
+                    letterSpacing: "0.02em",
                     flexShrink: 0,
                   }}
                 >
-                  {t.avatar}
-                </div>
-                <div>
-                  <p style={{ fontFamily: "var(--font-sora)", fontSize: 14, fontWeight: 600, color: "#18181B" }}>
-                    {t.name}
-                  </p>
-                  <p style={{ fontFamily: "var(--font-jakarta)", fontSize: 12, color: "#A1A1AA" }}>
-                    {t.title}
-                  </p>
-                </div>
+                  {t.badge}
+                </span>
               </div>
             </motion.div>
           ))}

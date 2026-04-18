@@ -3,6 +3,13 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
+/* SVG check icon */
+const CheckIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="#4ADE80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const tiers = [
   {
     name: "Free",
@@ -26,11 +33,11 @@ const tiers = [
     description: "For founding teams raising or scaling",
     cta: "Start 14-day trial",
     featured: true,
-    badge: "Most popular",
+    badge: "Popular",
     features: [
       "Unlimited team members",
-      "Runway tracker + scenario modeling",
-      "Full cap table with dilution modeling",
+      "Runway tracker + scenarios",
+      "Full cap table + dilution modeling",
       "Unlimited investor updates",
       "Hiring pipeline",
       "Metrics dashboard + integrations",
@@ -47,7 +54,7 @@ const tiers = [
     features: [
       "Everything in Pro",
       "Advanced permissions & roles",
-      "Custom integrations (API access)",
+      "Custom integrations (API)",
       "Board deck export",
       "SOC 2 compliance tools",
       "Dedicated account manager",
@@ -67,47 +74,45 @@ export default function Pricing() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           <p
             style={{
-              fontFamily: "var(--font-jakarta)",
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#FF6B35",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              marginBottom: 12,
+              fontFamily: "var(--font-jetbrains), monospace",
+              fontSize: 12,
+              color: "#71717A",
+              letterSpacing: "0.04em",
+              marginBottom: 16,
             }}
           >
-            Simple pricing
+            // pricing
           </p>
           <h2
             style={{
-              fontFamily: "var(--font-sora)",
-              fontSize: "clamp(28px, 4vw, 40px)",
+              fontFamily: "var(--font-jetbrains), monospace",
+              fontSize: "clamp(24px, 3.5vw, 36px)",
               fontWeight: 700,
-              letterSpacing: "-0.03em",
-              color: "#18181B",
+              letterSpacing: "-0.02em",
+              color: "#FAFAFA",
               marginBottom: 16,
-              lineHeight: 1.15,
+              lineHeight: 1.2,
             }}
           >
-            Start free. Scale when you&apos;re ready.
+            Start free. Scale when ready.
           </h2>
           <p
             style={{
-              fontFamily: "var(--font-jakarta)",
-              fontSize: 17,
-              color: "#71717A",
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: 16,
+              color: "#A1A1AA",
               maxWidth: 480,
               margin: "0 auto",
-              lineHeight: 1.6,
+              lineHeight: 1.7,
             }}
           >
             No long-term contracts. No per-feature pricing.
-            Cancel anytime — we&apos;re founders too, we get it.
+            Cancel anytime — we&apos;re founders too.
           </p>
         </motion.div>
 
@@ -116,7 +121,7 @@ export default function Pricing() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(1, 1fr)",
-            gap: 20,
+            gap: 16,
             alignItems: "start",
           }}
           className="md:!grid-cols-3"
@@ -126,167 +131,168 @@ export default function Pricing() {
               key={tier.name}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               style={{
-                background: tier.featured ? "#18181B" : "#FFFFFF",
-                borderRadius: 16,
-                padding: 32,
+                background: "#18181B",
+                borderRadius: 2,
+                padding: 0,
                 border: tier.featured
-                  ? "1px solid #18181B"
-                  : "1px solid rgba(24,24,27,0.08)",
+                  ? "1px solid #FBBF24"
+                  : "1px solid #27272A",
                 position: "relative",
-                boxShadow: tier.featured
-                  ? "0 16px 48px rgba(24,24,27,0.15)"
-                  : "none",
+                overflow: "hidden",
               }}
             >
               {/* Badge */}
               {tier.badge && (
                 <div
                   style={{
-                    position: "absolute",
-                    top: -12,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    fontFamily: "var(--font-jakarta)",
+                    background: "#FBBF24",
+                    color: "#09090B",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
                     fontSize: 12,
                     fontWeight: 600,
-                    color: "#FFFFFF",
-                    background: "#FF6B35",
-                    padding: "4px 16px",
-                    borderRadius: 20,
-                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                    padding: "6px 0",
+                    letterSpacing: "0.02em",
                   }}
                 >
                   {tier.badge}
                 </div>
               )}
 
-              <p
-                style={{
-                  fontFamily: "var(--font-sora)",
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: tier.featured ? "#FFFFFF" : "#18181B",
-                  marginBottom: 4,
-                }}
-              >
-                {tier.name}
-              </p>
-
-              <p
-                style={{
-                  fontFamily: "var(--font-jakarta)",
-                  fontSize: 14,
-                  color: tier.featured ? "rgba(255,255,255,0.6)" : "#A1A1AA",
-                  marginBottom: 20,
-                }}
-              >
-                {tier.description}
-              </p>
-
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 24 }}>
-                <span
+              <div style={{ padding: "24px 24px 28px" }}>
+                {/* Tier name */}
+                <h3
                   style={{
-                    fontFamily: "var(--font-sora)",
-                    fontSize: 40,
-                    fontWeight: 700,
-                    letterSpacing: "-0.03em",
-                    color: tier.featured ? "#FFFFFF" : "#18181B",
+                    fontFamily: "var(--font-jetbrains), monospace",
+                    fontSize: 16,
+                    fontWeight: 500,
+                    color: "#FAFAFA",
+                    marginBottom: 4,
                   }}
                 >
-                  {tier.price}
-                </span>
-                <span
+                  {tier.name}
+                </h3>
+
+                <p
                   style={{
-                    fontFamily: "var(--font-jakarta)",
-                    fontSize: 14,
-                    color: tier.featured ? "rgba(255,255,255,0.5)" : "#A1A1AA",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: 13,
+                    color: "#71717A",
+                    marginBottom: 20,
                   }}
                 >
-                  {tier.period}
-                </span>
-              </div>
+                  {tier.description}
+                </p>
 
-              {/* CTA button */}
-              <a
-                href="#cta"
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  fontFamily: "var(--font-jakarta)",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  padding: "14px 24px",
-                  borderRadius: 10,
-                  textDecoration: "none",
-                  transition: "background 0.2s, transform 0.2s",
-                  marginBottom: 28,
-                  ...(tier.featured
-                    ? {
-                        background: "#FF6B35",
-                        color: "#FFFFFF",
-                      }
-                    : {
-                        background: "transparent",
-                        color: "#18181B",
-                        border: "1px solid rgba(24,24,27,0.15)",
-                      }),
-                }}
-                onMouseEnter={(e) => {
-                  if (tier.featured) {
-                    e.currentTarget.style.background = "#E55A2B";
-                  } else {
-                    e.currentTarget.style.background = "rgba(24,24,27,0.03)";
-                  }
-                  e.currentTarget.style.transform = "translateY(-1px)";
-                }}
-                onMouseLeave={(e) => {
-                  if (tier.featured) {
-                    e.currentTarget.style.background = "#FF6B35";
-                  } else {
-                    e.currentTarget.style.background = "transparent";
-                  }
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                {tier.cta}
-              </a>
-
-              {/* Features list */}
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-                {tier.features.map((feature) => (
-                  <li
-                    key={feature}
+                {/* Price */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 6,
+                    marginBottom: 24,
+                  }}
+                >
+                  <span
                     style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 10,
-                      fontFamily: "var(--font-jakarta)",
-                      fontSize: 14,
-                      color: tier.featured ? "rgba(255,255,255,0.8)" : "#52525B",
-                      lineHeight: 1.5,
+                      fontFamily: "var(--font-jetbrains), monospace",
+                      fontSize: 40,
+                      fontWeight: 700,
+                      letterSpacing: "-0.03em",
+                      color: tier.featured ? "#FBBF24" : "#FAFAFA",
                     }}
                   >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      style={{ flexShrink: 0, marginTop: 2 }}
+                    {tier.price}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 13,
+                      color: "#71717A",
+                    }}
+                  >
+                    {tier.period}
+                  </span>
+                </div>
+
+                {/* CTA button */}
+                <a
+                  href="#cta"
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    padding: "12px 20px",
+                    borderRadius: 2,
+                    textDecoration: "none",
+                    transition: "background 0.2s, color 0.2s, border-color 0.2s",
+                    marginBottom: 24,
+                    ...(tier.featured
+                      ? {
+                          background: "#FBBF24",
+                          color: "#09090B",
+                          border: "1px solid #FBBF24",
+                        }
+                      : {
+                          background: "transparent",
+                          color: "#FAFAFA",
+                          border: "1px solid #27272A",
+                        }),
+                  }}
+                  onMouseEnter={(e) => {
+                    if (tier.featured) {
+                      e.currentTarget.style.background = "#F59E0B";
+                    } else {
+                      e.currentTarget.style.borderColor = "#3F3F46";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (tier.featured) {
+                      e.currentTarget.style.background = "#FBBF24";
+                    } else {
+                      e.currentTarget.style.borderColor = "#27272A";
+                    }
+                  }}
+                >
+                  {tier.cta}
+                </a>
+
+                {/* Features list */}
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                >
+                  {tier.features.map((feature) => (
+                    <li
+                      key={feature}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 10,
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: 13,
+                        color: "#A1A1AA",
+                        lineHeight: 1.5,
+                      }}
                     >
-                      <path
-                        d="M3 8.5L6.5 12L13 4"
-                        stroke={tier.featured ? "#FF6B35" : "#22C55E"}
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+                      <span style={{ flexShrink: 0, marginTop: 1 }}>
+                        <CheckIcon />
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>

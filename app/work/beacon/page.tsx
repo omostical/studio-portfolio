@@ -15,24 +15,24 @@ export default function BeaconPage() {
     <>
       <style>{`
         .beacon-page ::selection {
-          background: rgba(255,107,53,0.2);
-          color: #18181B;
+          background: rgba(74, 222, 128, 0.2);
+          color: #FAFAFA;
         }
         .beacon-page ::-moz-selection {
-          background: rgba(255,107,53,0.2);
-          color: #18181B;
+          background: rgba(74, 222, 128, 0.2);
+          color: #FAFAFA;
         }
-        .beacon-page body::before {
-          display: none !important;
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
         }
       `}</style>
       <main
         className="beacon-page relative overflow-x-hidden"
         style={{
-          background: "#FAFAF8",
-          color: "#18181B",
-          colorScheme: "light",
-          fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+          background: "#09090B",
+          color: "#FAFAFA",
+          colorScheme: "dark",
         }}
       >
         <Nav />
