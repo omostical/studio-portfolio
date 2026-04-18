@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +12,6 @@ const projects = [
     industry: "Fintech",
     tagline: "Revenue recognition automation",
     image: "/showcase/strata-hero.png",
-    accent: "#B8935A",
   },
   {
     slug: "medly",
@@ -20,7 +19,6 @@ const projects = [
     industry: "Healthtech",
     tagline: "Patient engagement platform",
     image: "/showcase/medly-hero.png",
-    accent: "#4ECBA0",
   },
   {
     slug: "haven",
@@ -28,7 +26,6 @@ const projects = [
     industry: "Proptech",
     tagline: "Property intelligence platform",
     image: "/showcase/haven-hero.png",
-    accent: "#C9855E",
   },
   {
     slug: "canopy",
@@ -36,7 +33,6 @@ const projects = [
     industry: "Insurtech",
     tagline: "Claims intelligence platform",
     image: "/showcase/canopy-hero.png",
-    accent: "#3B82F6",
   },
   {
     slug: "beacon",
@@ -44,7 +40,13 @@ const projects = [
     industry: "Startup",
     tagline: "The OS for early-stage startups",
     image: "/showcase/beacon-hero.png",
-    accent: "#FF6B35",
+  },
+  {
+    slug: "aura",
+    name: "Aura",
+    industry: "AI / Enterprise",
+    tagline: "AI-powered customer experience",
+    image: "/showcase/aura-hero.png",
   },
 ];
 
@@ -81,72 +83,74 @@ function ProjectCard({
           className="relative overflow-hidden"
           style={{
             borderRadius: "12px",
-            border: `1px solid ${hovered ? `${project.accent}40` : "rgba(255,255,255,0.07)"}`,
-            transition: "border-color 0.3s, box-shadow 0.3s",
-            boxShadow: hovered
-              ? `0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px ${project.accent}18`
-              : "none",
+            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
           <div
             className="relative overflow-hidden"
             style={{ aspectRatio: "16/10" }}
           >
+            {/* Screenshot image */}
             <Image
               src={project.image}
               alt={`${project.name} — ${project.tagline}`}
               fill
-              className="object-cover object-top transition-transform duration-700 ease-out"
-              style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}
+              className="object-cover object-top"
+              style={{
+                transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: hovered ? "scale(1.035)" : "scale(1)",
+                filter: hovered ? "blur(12px) brightness(0.45)" : "blur(0px) brightness(1)",
+              }}
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-            <div
-              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-              style={{
-                background: "linear-gradient(to bottom, transparent 40%, rgba(2,2,2,0.9))",
-                opacity: hovered ? 1 : 0.7,
-              }}
-            />
 
-            {/* Name + tag */}
-            <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
-              <div>
-                <span
-                  className="text-[10px] uppercase tracking-widest font-body block mb-2"
-                  style={{ color: project.accent }}
+            {/* Name + industry — centered, appears on hover */}
+            <AnimatePresence>
+              {hovered && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 flex flex-col items-center justify-center"
+                  style={{ zIndex: 2 }}
                 >
-                  {project.industry}
-                </span>
-                <h3
-                  className="font-display text-cloud"
-                  style={{
-                    fontSize: "clamp(1.25rem, 2vw, 1.625rem)",
-                    lineHeight: 1.15,
-                    letterSpacing: "-0.025em",
-                  }}
-                >
-                  {project.name}
-                </h3>
-              </div>
-              <div
-                className="w-8 h-8 flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                style={{
-                  background: hovered ? project.accent : "rgba(255,255,255,0.1)",
-                  borderRadius: "50%",
-                  transform: hovered ? "scale(1)" : "scale(0.9)",
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M3 7h8M8 4l3 3-3 3"
-                    stroke={hovered ? "#060A14" : "#EDE8DC"}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
+                  <motion.span
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.35, delay: 0.04, ease: [0.16, 1, 0.3, 1] }}
+                    className="font-body"
+                    style={{
+                      fontSize: "0.6875rem",
+                      fontWeight: 500,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.5)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {project.industry}
+                  </motion.span>
+                  <motion.h3
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.4, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+                    className="font-display"
+                    style={{
+                      fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+                      fontWeight: 500,
+                      color: "#FFFFFF",
+                      letterSpacing: "-0.03em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {project.name}
+                  </motion.h3>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </Link>
@@ -160,7 +164,6 @@ export default function Playground() {
       className="relative overflow-x-hidden min-h-screen"
       style={{ background: "#020202" }}
     >
-      {/* Hero — just a big bold headline */}
       <section className="pt-24 pb-16 md:pt-32 md:pb-20 px-6 md:px-10 max-w-layout mx-auto text-center">
         <h1
           className="font-display text-cloud"
@@ -177,7 +180,6 @@ export default function Playground() {
         </p>
       </section>
 
-      {/* Grid */}
       <section className="px-6 md:px-10 pb-20 max-w-layout mx-auto">
         <div className="grid md:grid-cols-2 gap-4">
           {projects.map((project, i) => (
