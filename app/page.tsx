@@ -13,6 +13,14 @@ type ProjectType = (typeof projectTypes)[number];
 
 const projects = [
   {
+    slug: "lumen",
+    name: "Lumen",
+    industry: "Software" as Industry,
+    type: "Landing page" as ProjectType,
+    tagline: "Analytics for operators",
+    image: "/showcase/lumen-hero.png",
+  },
+  {
     slug: "strata",
     name: "Strata",
     industry: "Fintech" as Industry,
