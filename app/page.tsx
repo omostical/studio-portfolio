@@ -5,13 +5,21 @@ import { useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const industries = ["Software", "AI", "Fintech", "Marketing", "Health", "Real estate"] as const;
+const industries = ["Software", "AI", "Fintech", "Marketing", "Health", "Real estate", "Fashion"] as const;
 const projectTypes = ["Landing page", "SaaS Dashboard", "Pitch deck", "AI tools"] as const;
 
 type Industry = (typeof industries)[number];
 type ProjectType = (typeof projectTypes)[number];
 
 const projects = [
+  {
+    slug: "sevrin",
+    name: "SEVRIN",
+    industry: "Fashion" as Industry,
+    type: "Landing page" as ProjectType,
+    tagline: "Contemporary outerwear, cut in Florence",
+    image: "/showcase/sevrin-hero.png",
+  },
   {
     slug: "lumen",
     name: "Lumen",
